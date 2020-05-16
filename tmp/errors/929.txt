@@ -1,0 +1,6 @@
+  File "client.py", line 275, in executeOp
+    cmd      = command(text)
+  File "C:\Users\Intel\Desktop\VPS\PROJEK\media_bot\list_def.py", line 46, in command
+    if settings['setKey']['status']:
+  File "C:\Users\Intel\AppData\Local\Programs\Python\Python37\lib\site-packages\livejson.py", line 49, in __getitem__
+    out = self.data[key]

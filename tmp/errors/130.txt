@@ -1,0 +1,4 @@
+  File "client.py", line 614, in executeOp
+    executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey)
+  File "client.py", line 470, in executeCmd
+    line.sendReplyMessage(msg_id,to, "# Gagal memuat perintah, Superehero {} Tidak ditemukan.".format(texts))

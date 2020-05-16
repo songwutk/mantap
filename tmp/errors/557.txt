@@ -1,0 +1,4 @@
+  File "client.py", line 1118, in executeOp
+    executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey)
+  File "client.py", line 876, in executeCmd
+    except:client.sendReplyMessage(msg_id, to,"#Perintah Gagal : {} Tidak ditemukan.".format(translations.origin))

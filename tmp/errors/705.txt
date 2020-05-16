@@ -1,0 +1,6 @@
+  File "client.py", line 166, in executeCmd
+    data = KBBI(judul)
+  File "C:\Users\Intel\AppData\Local\Programs\Python\Python37\lib\site-packages\kbbi\kbbi.py", line 45, in __init__
+    self._cek_galat(laman)
+  File "C:\Users\Intel\AppData\Local\Programs\Python\Python37\lib\site-packages\kbbi\kbbi.py", line 77, in _cek_galat
+    raise TidakDitemukan(self.nama)
