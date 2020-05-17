@@ -28,4 +28,3 @@ import http.client
 import mimetypes
 import humanize
 import youtube_dl
-import random
