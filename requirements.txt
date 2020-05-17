@@ -1,8 +1,15 @@
-pytz 
+thrift
+hyper
+httpx
+pafy
+humanfriendly
+httplib2
+pytz
 datetime
 bs4
 googletrans
 kbbi
+timeago
 time
 timeit
 random
