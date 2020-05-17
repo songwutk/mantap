@@ -1,6 +1,6 @@
 from important import *
 
-parser = argparse.ArgumentParser(description='Selfbot Reighpuy @HelloWorld')
+parser = argparse.ArgumentParser(description='Reighpuy @HelloWorld')
 parser.add_argument('-t', '--token', type=str, metavar='', required=False, help='Token | Example : Exxxx')
 parser.add_argument('-a', '--apptype', type=str, default='', metavar='', required=False, choices=list(ApplicationType._NAMES_TO_VALUES), help='Application Type | Example : CHROMEOS')
 parser.add_argument('-s', '--systemname', type=str, default='', metavar='', required=False, help='System Name | Example : Chrome_OS')
