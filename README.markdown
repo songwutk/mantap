@@ -3,14 +3,9 @@
 
 [ ***Usage Instruction*** ]
 
-> Install Not founded Module :
-```python
-pip install (mobule_name)
-pip3 install (module_name)
-sudo pip install (module_name)
-```
-
 > Run the Program :
- ```python
+```python
+cd mantap
+python -m pip install -r materials.txt
 python3 client.py
 ```
