@@ -1,7 +1,6 @@
 ### Thx to All HelloWorld Members!
 > Basics from HelloWorld
 
-Run : 
-```python
+ Run :```python
 python3 client.py
 ```
