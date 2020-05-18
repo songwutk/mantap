@@ -1,11 +1,9 @@
-from datetime import timedelta, date
-from datetime import datetime
+from datetime import timedelta, datetime, date
 from bs4 import BeautifulSoup
 from googletrans import Translator
 from kbbi import KBBI
 from random import randint
 import pytz 
-import datetime
 import time
 import timeit
 import random
