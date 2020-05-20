@@ -11,10 +11,13 @@ $ python -m pip install -r materials.txt
 $ python3 client.py
 ```
 
-# For Checkin Version of Module
+# For Checkin Version of Module // Untuk Memeriksa Versi Modul
 
 # Windows :
  > pip freeze | findstr (nama)
 
 # Linux :
  > pip freeze | grep (nama)
+
+# Log Update :
+ 1. 
