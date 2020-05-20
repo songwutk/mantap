@@ -1,7 +1,7 @@
 ### Thx to All HelloWorld Members!
 > Basics from HelloWorld
 
-[ ***Usage Instruction*** ]
+[ ***Instruksi Penggunaan*** ]
 
 > Run the Program :
 ```python
