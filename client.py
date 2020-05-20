@@ -108,7 +108,7 @@ def helpmessage():
                     "╭─「 Media 」─" + "\n" + \
                     "│ " + key + "Antonim (kata)" + "\n" + \
                     "│ " + key + "Cat facts" + "\n" + \
-                    "│ " + key + "Getcountry (nama_negara)" + "\n" + \
+                    "│ " + key + "Countryinfo (nama_negara)" + "\n" + \
                     "│ " + key + "Daily nasa" + "\n" + \
                     "│ " + key + "Harrypotter" + "\n" + \
                     "│ " + key + "Ipcheck (ip)" + "\n" + \
@@ -540,7 +540,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
       except:client.sendReplyMessage(msg_id,to, "# Gagal memuat perintah, Superehero {} Tidak ditemukan.".format(texts))
 
     # get Country
-    elif cmd.startswith("getcountry "):
+    elif cmd.startswith("countryinfo "):
       try:
             proses = msg.text.split(" ")
             urutan = msg.text.replace(proses[0] + " ","")
