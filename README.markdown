@@ -19,6 +19,7 @@ $ python3 client.py
 # Linux :
  > pip freeze | grep (nama)
 
-# Terakhir Diperbarui : 3:13, 20 Mei 2020.
- 1. Media : Country Info.
- 2. Media : Ip Check.
+# Terakhir Diperbarui : 
+ > Pada : 3:13, 20 Mei 2020.
+  1. Media : Country Info.
+  2. Media : Ip Check.
