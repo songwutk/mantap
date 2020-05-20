@@ -20,4 +20,6 @@ $ python3 client.py
  > pip freeze | grep (nama)
 
 # Log Update :
- 1. 
+> Date : 13:13, 20 Mei 2020.
+ 1. Media : Country Info.
+ 2. Media : Ip Check.
