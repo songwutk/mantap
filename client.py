@@ -100,7 +100,7 @@ def helpmessage():
         key = settings['setKey']['key'].title()
     else:
         key = ''
-    helpMessage ="╭─「 General 」─── " + "\n" + \
+    helpMessage ="╭─「 Umum 」─── " + "\n" + \
                     "│ Prefix : " + key + "\n" + \
                     "│ " + key + "Me" + "\n" + \
                     "│ " + key + "Pembuat" + "\n" + \
