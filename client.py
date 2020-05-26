@@ -85,7 +85,7 @@ bool_dict = {
 def sendTemplate(to, data):
     xyz = LiffChatContext(to)
     xyzz = LiffContext(chat=xyz)
-    view = LiffViewRequest('1602687308-GXq4Vvk9', xyzz)
+    view = LiffViewRequest('1654177568-wL8RdxDk', xyzz)
     token = client.liff.issueLiffView(view)
     url = 'https://api.line.me/message/v3/share'
     headers = {
