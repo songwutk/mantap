@@ -102,6 +102,35 @@ def helpmessage():
                     "╰────────────"
     return helpMessage
 
+def helpmsg4():
+    if settings['setKey'] == True:
+        key = settings['keyCommand']
+    else:
+        key = ''
+    helpMsg4 =   "╭───「 Group 」" + "\n" + \
+                    "├" + key + "Groupinfo" + "\n" + \
+                    "├" + key + "Grouplist" + "\n" + \
+                    "├" + key + "Memberlist" + "\n" + \
+                    "├" + key + "Openqr" + "\n" + \
+                    "├" + key + "Closeqr" + "\n" + \
+                    "├" + key + "ChangeGroupName <name>" + "\n" + \
+                    "├" + key + "ChangeGroupPict" + "\n" + \
+                    "├" + key + "Kickall" + "\n" + \
+                    "├" + key + "Cancelall" + "\n" + \
+                    "├" + key + "Tagall" + "\n" + \
+                    "├" + key + "Lurk" + "\n" + \
+                    "├" + key + "kick <Mention>" + "\n" + \
+                    "├" + key + "Vkick <Mention>" + "\n" + \
+                    "├" + key + "Greet" + "\n" + \
+                    "├────「 Remote 」" + "\n" + \
+                    "├" + key + "Open <NumberGroup>" + "\n" + \
+                    "├" + key + "Close <NumberGroup>" + "\n" + \
+                    "╰────────────"
+    return helpMsg4
+
+
+
+
 def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
 
     # // Bot Logouted His Device
@@ -113,6 +142,137 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
     if cmd == "maker":
         client.sendContact(to,admin)
 
+    elif cmd == "group":
+            helpMsg4 = helpmsg4()
+            ty = client.getContact(sender)
+            a={'MSG_SENDER_NAME': client.getContact(sender).displayName, 'MSG_SENDER_ICON': 'http://dl.profile.line.naver.jp' + str(ty.picturePath)}
+            client.sendReplyMessage(msg_id, to, str(helpMsg4), contentMetadata=a)
+    
+    elif cmd == 'groupinfo':
+        if msg.toType != 2: return client.sendReplyMessage(msg_id, to, 'Failed display group info, use this command only on group chat')
+        group = client.getCompactGroup(to)
+        try:
+            ccreator = group.creator.mid
+            gcreator = group.creator.displayName
+        except:
+            ccreator = None
+            gcreator = 'Not found'
+        if not group.invitee:
+            pendings = 0
+        else:
+            pendings = len(group.invitee)
+        qr = 'Close' if group.preventedJoinByTicket else 'Open'
+        if group.preventedJoinByTicket:
+            ticket = 'Not found'
+        else:
+            ticket = 'https://line.me/R/ti/g/' + str(client.reissueGroupTicket(group.id))
+        created = time.strftime('%d-%m-%Y %H:%M:%S', time.localtime(int(group.createdTime) / 1000))
+        path = 'http://dl.profile.line-cdn.net/' + group.pictureStatus
+        res = '╭───「 Group Info 」'
+        #res += '\n├ ID : ' + group.id
+        res += '\n├ Name : ' + group.name
+        res += '\n├ Creator : ' + gcreator
+        res += '\n├ Created Time : ' + created
+        res += '\n├ Member Count : ' + str(len(group.members))
+        res += '\n├ Pending Count : ' + str(pendings)
+        #res += '\n├ QR Status : ' + qr
+        #res += '\n├ Ticket : ' + ticket
+        #res += '\n╰───「 Self Bot 」'
+        res += '\n╰────────────'
+        #client.sendImageWithURL(to, path)  # Owner avatar
+        #if ccreator: # tag creator
+        #    client.sendContact(to, ccreator)
+        client.sendReplyMessage(msg_id, to, res)
+    
+    elif cmd.startswith('grouplist'):
+        textt = removeCmd(text, setKey)
+        texttl = textt.lower()
+        gids = client.getGroupIdsJoined()
+        gnames = []
+        ress = []
+        res = '╭───「 Group List 」'
+        res += '\n├ List:'
+        if gids:
+            groups = client.getGroups(gids)
+            no = 0
+            if len(groups) > 200:
+                parsed_len = len(groups)//200+1
+                for point in range(parsed_len):
+                    for group in groups[point*200:(point+1)*200]:
+                        no += 1
+                        res += '\n│ %i. %s//%i' % (no, group.name, len(group.members))
+                        gnames.append(group.name)
+                    if res:
+                        if res.startswith('\n'): res = res[1:]
+                        if point != parsed_len - 1:
+                            ress.append(res)
+                    if point != parsed_len - 1:
+                        res = ''
+            else:
+                for group in groups:
+                    no += 1
+                    res += '\n│ %i. %s//%i' % (no, group.name, len(group.members))
+                    gnames.append(group.name)
+        else:
+            res += '\n│ Nothing'
+        res += '\n├ Usage : '
+        res += '\n│ • {key}GroupList'
+        res += '\n│ • {key}GroupList Leave <num/name/all>'
+        res += '\n╰───「 Self Bot 」'
+        ress.append(res)
+        if cmd == 'grouplist':
+            for res in ress:
+                client.sendReplyMessage(msg_id, to, parsingRes(res).format_map(SafeDict(key=setKey.title())))
+        elif texttl.startswith('leave '):
+            texts = textt[6:].split(', ')
+            leaved = []
+            if not gids:
+                return client.sendReplyMessage(msg_id, to, 'Failed leave group, nothing group in list')
+            for texxt in texts:
+                num = None
+                name = None
+                try:
+                    num = int(texxt)
+                except ValueError:
+                    name = texxt
+                if num != None:
+                    if num <= len(groups) and num > 0:
+                        group = groups[num - 1]
+                        if group.id in leaved:
+                            client.sendReplyMessage(msg_id, to, 'Already leave group %s' % group.name)
+                            continue
+                        client.leaveGroup(group.id)
+                        leaved.append(group.id)
+                        if to not in leaved:
+                            client.sendReplyMessage(msg_id, to, 'Success leave group %s' % group.name)
+                    else:
+                        client.sendReplyMessage(msg_id, to, 'Failed leave group number %i, number out of range' % num)
+                elif name != None:
+                    if name in gnames:
+                        group = groups[gnames.index(name)]
+                        if group.id in leaved:
+                            client.sendReplyMessage(msg_id, to, 'Already leave group %s' % group.name)
+                            continue
+                        client.leaveGroup(group.id)
+                        leaved.append(group.id)
+                        if to not in leaved:
+                            client.sendReplyMessage(msg_id, to, 'Success leave group %s' % group.name)
+                    elif name.lower() == 'all':
+                        for gid in gids:
+                            if gid in leaved:
+                                continue
+                            client.leaveGroup(gid)
+                            leaved.append(gid)
+                            time.sleep(0.8)
+                        if to not in leaved:
+                            client.sendReplyMessage(msg_id, to, 'Success leave all group ♪')
+                    else:
+                        client.sendReplyMessage(msg_id, to, 'Failed leave group with name `%s`, name not in list ♪' % name)
+        else:
+            for res in ress:
+                client.sendReplyMessage(msg_id, to, parsingRes(res).format_map(SafeDict(key=setKey.title())))    
+    
+    
     # // Checking Speed of Bot Send an Message
     elif cmd == 'speed':
         start = time.time()
@@ -133,7 +293,75 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
         settings['restartPoint'] = to
         restartProgram()
     
-
+    elif 'spic' in text.lower():
+                                try:
+                                    key = eval(msg.contentMetadata["MENTION"])
+                                    u = key["MENTIONEES"][0]["M"]
+                                    a = client.getContact(u).pictureStatus
+                                    client.sendImageWithURL(receiver, 'http://dl.profile.line.naver.jp/'+a)
+                                except Exception as e:
+                                    client.sendText(receiver, str(e))
+    elif 'scover' in text.lower():
+                                try:
+                                    key = eval(msg.contentMetadata["MENTION"])
+                                    u = key["MENTIONEES"][0]["M"]
+                                    a = channel.getProfileCoverURL(mid=u)
+                                    client.sendImageWithURL(receiver, a)
+                                except Exception as e:
+                                    client.sendText(receiver, str(e))
+    elif text.lower() == 'tagall':
+                                group = client.getGroup(msg.to)
+                                nama = [contact.mid for contact in group.members]
+                                nm1, nm2, nm3, nm4, nm5, jml = [], [], [], [], [], len(nama)
+                                if jml <= 100:
+                                    client.mention(msg.to, nama)
+                                if jml > 100 and jml < 200:
+                                    for i in range(0, 100):
+                                        nm1 += [nama[i]]
+                                    client.mention(msg.to, nm1)
+                                    for j in range(101, len(nama)):
+                                        nm2 += [nama[j]]
+                                    client.mention(msg.to, nm2)
+                                if jml > 200 and jml < 300:
+                                    for i in range(0, 100):
+                                        nm1 += [nama[i]]
+                                    client.mention(msg.to, nm1)
+                                    for j in range(101, 200):
+                                        nm2 += [nama[j]]
+                                    client.mention(msg.to, nm2)
+                                    for k in range(201, len(nama)):
+                                        nm3 += [nama[k]]
+                                    client.mention(msg.to, nm3)
+                                if jml > 300 and jml < 400:
+                                    for i in range(0, 100):
+                                        nm1 += [nama[i]]
+                                    client.mention(msg.to, nm1)
+                                    for j in range(101, 200):
+                                        nm2 += [nama[j]]
+                                    client.mention(msg.to, nm2)
+                                    for k in range(201, len(nama)):
+                                        nm3 += [nama[k]]
+                                    client.mention(msg.to, nm3)
+                                    for l in range(301, len(nama)):
+                                        nm4 += [nama[l]]
+                                    client.mention(msg.to, nm4)
+                                if jml > 400 and jml < 501:
+                                    for i in range(0, 100):
+                                        nm1 += [nama[i]]
+                                    client.mention(msg.to, nm1)
+                                    for j in range(101, 200):
+                                        nm2 += [nama[j]]
+                                    client.mention(msg.to, nm2)
+                                    for k in range(201, len(nama)):
+                                        nm3 += [nama[k]]
+                                    client.mention(msg.to, nm3)
+                                    for l in range(301, len(nama)):
+                                        nm4 += [nama[l]]
+                                    client.mention(msg.to, nm4)
+                                    for m in range(401, len(nama)):
+                                        nm5 += [nama[m]]
+                                    client.mention(msg.to, nm5)             
+                                client.sendText(receiver, "Members :"+str(jml))
 
     # // Bot Send Profile Of Sender
     if cmd == "me":
@@ -207,10 +435,10 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
             try:
                 filee = open('errorLog.txt', 'r')
             except FileNotFoundError:
-                return client.sendReplyMessage(msg_id, to, 'Tidak ditemukan Error.')
+                return client.sendReplyMessage(msg_id, to, 'not found Error.')
             errors = [err.strip() for err in filee.readlines()]
             filee.close()
-            if not errors: return client.sendReplyMessage(msg_id, to, 'Tidak ditemukan Error.')
+            if not errors: return client.sendReplyMessage(msg_id, to, 'not foundError.')
             res = '╭───「 Error Logs 」'
             res += '\n├ List :'
             parsed_len = len(errors)//200+1
