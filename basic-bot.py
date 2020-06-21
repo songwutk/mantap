@@ -98,7 +98,7 @@ def helpmessage():
                     "│ " + key + "speed" + "\n" + \
                     "│ " + key + "runtime" + "\n" + \
                     "│ " + key + "relogin" + "\n" + \
-                    "│ " + key + "kbbi" + "\n" + \                        
+                    "│ " + key + "kbbi" + "\n" + \
                     "╰────────────"
     return helpMessage
 
