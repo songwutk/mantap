@@ -57,13 +57,13 @@ try:
                 if args.traceback: traceback.print_tb(error.__traceback__)
                 sys.exit(1)
 except Exception as error:
-    print ('Pesan Sistem : Error : %s' % str(error))
+    print ('System Message: Error : %s' % str(error))
     if args.traceback: traceback.print_tb(error.__traceback__)
     sys.exit(1)
 
 if client:
-    print ('\nPenting: Auth Token -> %s' % client.authToken)
-    print ('Penting: Timeline Token -> %s' % client.tl.channelAccessToken)
+    print ('\Urgent: Auth Token -> %s' % client.authToken)
+    print ('Urgent: Timeline Token -> %s' % client.tl.channelAccessToken)
     print ('\nSystem Message : *Login Successfully.')
 else:
     sys.exit('System Message : *Login Failed.')
@@ -130,7 +130,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
 
     # // Bot Logouted His Device
     if cmd == '@logout device':
-      client.sendReplyMessage(msg_id, to, '* Program di-berhentikan.')
+      client.sendReplyMessage(msg_id, to, '* Program terminated.')
       sys.exit('##----- PROGRAM STOPPED -----##')
 
     # // Bot Send His Creator Contact
@@ -214,7 +214,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
          ret_ += "\n4) : {}".format(str(data[3]["word"]))
          ret_ += "\n5) : {}".format(str(data[4]["word"]))
          client.sendReplyMessage(msg_id, to, str(ret_))
-      except:client.sendReplyMessage(msg_id, to,"#Perintah Gagal : {} Tidak ditemukan.".format(urutan))
+      except:client.sendReplyMessage(msg_id, to,"#Command Failed, {} Not found.".format(urutan))
 
     # WIKIPEDIA
     elif cmd.startswith('wikipedia'):
@@ -271,7 +271,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
             isi += "\n├"
             isi += "\n╰───[ Ended ]"
             client.sendReplyMessage(msg_id, to, isi)
-          except:client.sendReplyMessage(msg_id, to, "# Perintah Gagal, Kode negara {} Tidak ditemukan.".format(texts))
+          except:client.sendReplyMessage(msg_id, to, "# Command Failed, {} Not found.".format(texts))
         elif texttl.startswith('summary '):
           try:
             texts = textt[8:]
@@ -289,7 +289,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
             isi += "\n╰───[ Ended ]"
             isi += "\n├ Full Desc : {}".format(str(data["extract"]))
             client.sendReplyMessage(msg_id, to, isi)
-          except:client.sendReplyMessage(msg_id, to, "# Perintah Gagal, {} Tidak ditemukan.".format(texts))
+          except:client.sendReplyMessage(msg_id, to, "# Command Failed, {} Not found.".format(texts))
         elif texttl.startswith('medialist '):
           try:
             texts = textt[10:]
@@ -305,7 +305,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
             isi += "\n├"
             isi += "\n╰───[ Ended ]"
             client.sendReplyMessage(msg_id, to, isi)
-          except:client.sendReplyMessage(msg_id, to, "# Perintah Gagal, {} Tidak ditemukan.".format(texts))
+          except:client.sendReplyMessage(msg_id, to, "# Command Failed, {} Not found.".format(texts))
         elif texttl.startswith('related '):
           try:
             texts = textt[8:]
@@ -323,7 +323,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
             isi += "\n├"
             isi += "\n╰───[ Ended ]"
             client.sendReplyMessage(msg_id, to, isi)
-          except:client.sendReplyMessage(msg_id, to, "# Perintah Gagal, {} Tidak ditemukan.".format(texts))
+          except:client.sendReplyMessage(msg_id, to, "# Command Failed, {} Not found.".format(texts))
         elif texttl.startswith('randomsum'):
           try:
             req = requests.get("https://id.wikipedia.org/api/rest_v1/page/random/summary")
@@ -340,7 +340,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
             isi += "\n╰───[ Ended ]"
             isi += "\nFull Desc : {}".format(str(data["extract"]))
             client.sendReplyMessage(msg_id, to, isi)
-          except:client.sendReplyMessage(msg_id, to, "# Perintah Gagal.".format(texts))
+          except:client.sendReplyMessage(msg_id, to, "# Command Failed.".format(texts))
 
     # HARRYPOTTER
     elif cmd.startswith('harrypotter'):
@@ -383,7 +383,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
                 }
             }
             sendTemplate(to, mantap)
-          except:client.sendReplyMessage(msg_id,to, "Nama {} Tidak ditemukan.".format(str(texts)))
+          except:client.sendReplyMessage(msg_id,to, "Name {} not found.".format(str(texts)))
         elif texttl.startswith("charlist"):
             client.sendReplyMessage(msg_id,to, "https://github.com/reighpuy/harry_potter_api/blob/master/characters.txt")
     # SUPERHERO
@@ -537,7 +537,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
             isi += "\n├"
             isi += "\n╰───[ Reighpuy @HelloWorld ]"
             client.sendReplyMessage(msg_id,to, isi)
-      except:client.sendReplyMessage(msg_id,to, "# Gagal memuat perintah, Superehero {} Tidak ditemukan.".format(texts))
+      except:client.sendReplyMessage(msg_id,to, "# Failed to load command, Superhero {} Not found.".format(texts))
 
     # get Country
     elif cmd.startswith("countryinfo "):
@@ -563,7 +563,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
                 }
             }
             sendTemplate(to, mantap)
-      except:client.sendReplyMessage(msg_id, to,"#Perintah Gagal : {} Tidak ditemukan.".format(urutan))
+      except:client.sendReplyMessage(msg_id, to,"#Command Failed: {} Not found.".format(urutan))
 
     # Urban dict
     elif cmd.startswith("urbandict "):
@@ -579,7 +579,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
           ret_ += "\nAlamat : {}".format(str(data[0]["url"]))
           client.sendReplyMessage(msg_id,to, ret_)
       except:
-          client.sendReplyMessage(msg_id, to,"#Perintah Gagal : {} Tidak ditemukan.".format(urutan))
+          client.sendReplyMessage(msg_id, to,"#Command Failed: {} Not found.".format(urutan))
 
     # ANTONYM
     elif cmd.startswith("antonim "):
@@ -589,7 +589,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
             r = requests.get("https://api.datamuse.com/words?rel_ant={}".format(str(urutan)))
             data = r.text
             data = json.loads(data)
-            ret_ = "[ Antonim dari kata : {} ]".format(urutan)
+            ret_ = "[ Antonyms of the word: {} ]".format(urutan)
             ret_ += "\n\n- {}".format(str(data[0]["word"]))
             client.sendReplyMessage(msg_id, to, str(ret_))
       except:client.sendReplyMessage(msg_id, to,"#Perintah Gagal : {} Tidak ditemukan.".format(urutan))
@@ -603,19 +603,19 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
         data = r.text
         data = json.loads(data)
         ret_ = "╭──[ Info Surah ]"
-        ret_ += "\n├\n├ Nomor Surah : {}".format(str(data["hasil"][0]["nomor"]))
-        ret_ += "\n├ Nama Surah : {}".format(str(data["hasil"][0]["nama"]))
+        ret_ += "\n├\n├ Number Surah : {}".format(str(data["hasil"][0]["nomor"]))
+        ret_ += "\n├ Name Surah : {}".format(str(data["hasil"][0]["nama"]))
         ret_ += "\n├ Arti Surah : {}".format(str(data["hasil"][0]["arti"]))
         ret_ += "\n├ Asma : {}".format(str(data["hasil"][0]["asma"]))
         ret_ += "\n├ Start : {}".format(str(data["hasil"][0]["start"]))
-        ret_ += "\n├ Ayat : {}".format(str(data["hasil"][0]["ayat"]))
+        ret_ += "\n├ Paragraph: {}".format(str(data["hasil"][0]["ayat"]))
         ret_ += "\n├ Tipe : {}".format(str(data["hasil"][0]["type"]))
-        ret_ += "\n├ Urut : {}".format(str(data["hasil"][0]["urut"]))
-        ret_ += "\n├ Rukuk : {}".format(str(data["hasil"][0]["rukuk"]))
+        ret_ += "\n├ Sort : {}".format(str(data["hasil"][0]["urut"]))
+        ret_ += "\n├ Bowing: {}".format(str(data["hasil"][0]["rukuk"]))
         ret_ += "\n├\n╰──[ Reighpuy @HelloWorld ]"
-        ret_ += "\n\nKeterangan : \n{}".format(str(data["hasil"][0]["keterangan"]))
+        ret_ += "\n\nInformation : \n{}".format(str(data["hasil"][0]["keterangan"]))
         client.sendReplyMessage(msg_id, to, str(ret_))
-      except:client.sendReplyMessage(msg_id, to,"#Perintah Gagal : {} Tidak ditemukan.".format(urutan))
+      except:client.sendReplyMessage(msg_id, to,"#Command Failed: {} Not found.".format(urutan))
 
     # RANDOM NASA
     elif cmd == 'daily nasa':
@@ -661,7 +661,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
          ret_ += "\n├ Kota : {}".format(str(data["result"]["city"]))
          ret_ += "\n╰──[ Reighpuy @HelloWorld ]"
          client.sendReplyMessage(msg_id, to, str(ret_))
-      except:client.sendReplyMessage(msg_id, to,"#Perintah Gagal : {} Tidak ditemukan.".format(urutan))
+      except:client.sendReplyMessage(msg_id, to,"#Command Failed: {} Not found.".format(urutan))
 
     elif cmd.startswith("random quote"):
         r = requests.get("http://apitrojans.herokuapp.com/quotes")
@@ -681,13 +681,13 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
          ret_ += "\n├ Nama : {}".format(str(data["result"]["nama"]))
          ret_ += "\n├ Id : {}".format(str(data["result"]["id"]))
          ret_ += "\n├ Tweet : {}".format(str(data["result"]["tweet"]))
-         ret_ += "\n├ Mengikuti : {}".format(str(data["result"]["following"]))
-         ret_ += "\n├ Pengikut : {}".format(str(data["result"]["followers"]))
+         ret_ += "\n├ Follow : {}".format(str(data["result"]["following"]))
+         ret_ += "\n├ Follower : {}".format(str(data["result"]["followers"]))
          ret_ += "\n├ Bio : {}".format(str(data["result"]["bio"]))
          ret_ += "\n├ Avatar : {}".format(str(data["result"]["picture"]))
          ret_ += "\n╰──[ Reighpuy @HelloWorld ]"
          client.sendReplyMessage(msg_id, to, str(ret_))
-      except:client.sendReplyMessage(msg_id, to,"#Perintah Gagal : {} Tidak ditemukan.".format(urutan))
+      except:client.sendReplyMessage(msg_id, to,"#Command Failed: {} Not found.".format(urutan))
 
     # CAT FACTS
     elif cmd == 'cat facts':
@@ -708,7 +708,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
          data = r.text
          data = json.loads(data)
          client.sendReplyMessage(msg_id, to, data["text"])
-      except:client.sendReplyMessage(msg_id, to,"#Perintah Gagal : Anda Bau!")
+      except:client.sendReplyMessage(msg_id, to,"#Failed Command: You Stink!")
     # RANDOM DATE
     elif cmd == 'random date':
       try:
@@ -716,7 +716,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
          data = r.text
          data = json.loads(data)
          client.sendReplyMessage(msg_id,to, data["text"])
-      except:client.sendReplyMessage(msg_id, to,"#Perintah Gagal : Anda Bau!")
+      except:client.sendReplyMessage(msg_id, to,"#Failed Command: You Stink!")
     # RANDOM YEARS
     elif cmd == 'random year':
       try:
@@ -724,7 +724,7 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
          data = r.text
          data = json.loads(data)
          client.sendReplyMessage(msg_id,to, data["text"])
-      except:client.sendReplyMessage(msg_id, to,"#Perintah Gagal : Anda Bau!")
+      except:client.sendReplyMessage(msg_id, to,"#Failed Command: You Stink!")
 
                    # // MEDIA ENDED // #
 
@@ -799,19 +799,19 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
             client.sendReplyMessage(msg_id, to, parsingRes(res))
         elif texttl == 'on':
             if settings['setKey']['status']:
-                client.sendReplyMessage(msg_id, to, 'Gagal mengaktifkan setkey, setkey sudah aktif')
+                client.sendReplyMessage(msg_id, to, 'Failed to activate setkey, setkey is active')
             else:
                 settings['setKey']['status'] = True
-                client.sendReplyMessage(msg_id, to, 'Berhasil mengaktifkan Setkey.')
+                client.sendReplyMessage(msg_id, to, 'Activated successfully Setkey.')
         elif texttl == 'off':
             if not settings['setKey']['status']:
-                client.sendReplyMessage(msg_id, to, 'Gagal menonaktifkan setkey, setkey sudah dinonaktifkan')
+                client.sendReplyMessage(msg_id, to, 'Disabling failed setkey, setkey has been deactivated')
             else:
                 settings['setKey']['status'] = False
-                client.sendReplyMessage(msg_id, to, 'Berhasil menonaktifkan Setkey.')
+                client.sendReplyMessage(msg_id, to, 'Successfully deactivatedSetkey.')
         else:
             settings['setKey']['key'] = texttl
-            client.sendReplyMessage(msg_id, to, 'Sukses ubah set kunci ke (%s)' % textt)
+            client.sendReplyMessage(msg_id, to, 'Successfully changed key set to(%s)' % textt)
 
 def executeOp(op):
     try:
@@ -851,7 +851,7 @@ def executeOp(op):
                         except:
                             continue
                         if group.id in gids:
-                            client.sendReplyMessage(msg_id, to, 'Sudah di Grup ' + group.name)
+                            client.sendReplyMessage(msg_id, to, 'Already in a Group ' + group.name)
                             continue
                         client.acceptGroupInvitationByTicket(group.id, ticket)
                         if settings['autoJoin']['reply']:
@@ -859,17 +859,17 @@ def executeOp(op):
                                 client.sendReplyMessage(msg_id, to, settings['autoJoin']['message'])
                             else:
                                 client.sendMentionV2(to, settings['autoJoin']['message'], [sender])
-                        client.sendReplyMessage(msg_id, to, 'Sukses Gabung Grup ' + group.name)
+                        client.sendReplyMessage(msg_id, to, 'Success Join Group' + group.name)
                 try:
                     executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey)
                 except TalkException as talk_error:
                     logError(talk_error)
                     if talk_error.code in [7, 8, 20]:
                         sys.exit(1)
-                    client.sendReplyMessage(msg_id, to, '#Perintah Gagal : ' + str(talk_error))
+                    client.sendReplyMessage(msg_id, to, '#Command Failed : ' + str(talk_error))
                 except Exception as error:
                     logError(error)
-                    client.sendReplyMessage(msg_id, to, '#Perintah Gagal : ' + str(error))
+                    client.sendReplyMessage(msg_id, to, '#Command Failed : ' + str(error))
         elif op.type == 25 or op.type == 25:
             msg      = op.message
             text     = str(msg.text)
@@ -907,7 +907,7 @@ def executeOp(op):
         if talk_error.code in [7, 8, 20]:
             sys.exit(1)
     except KeyboardInterrupt:
-        sys.exit('Pesan SIstem : *KEYBOARD INTERRUPT.')
+        sys.exit('Order the system : *KEYBOARD INTERRUPT.')
     except Exception as error:
         logError(error)
 
@@ -921,7 +921,7 @@ def runningProgram():
                 sys.exit(1)
             continue
         except KeyboardInterrupt:
-            sys.exit('Pesan SIstem : *KEYBOARD INTERRUPT.')
+            sys.exit('Order the system : *KEYBOARD INTERRUPT.')
         except Exception as error:
             logError(error)
             continue
@@ -931,5 +931,5 @@ def runningProgram():
                 oepoll.setRevision(op.revision)
 
 if __name__ == '__main__':
-    print ('Pesan SIstem : *MENJALANKAN PROGRAM.\n#################################')
+    print ('Order the system : *RUN PROGRAM.\n#################################')
     runningProgram()
