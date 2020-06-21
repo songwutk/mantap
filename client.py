@@ -62,7 +62,7 @@ except Exception as error:
     sys.exit(1)
 
 if client:
-    print ('\Urgent: Auth Token -> %s' % client.authToken)
+    print ('\nUrgent: Auth Token -> %s' % client.authToken)
     print ('Urgent: Timeline Token -> %s' % client.tl.channelAccessToken)
     print ('\nSystem Message : *Login Successfully.')
 else:
