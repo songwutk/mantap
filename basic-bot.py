@@ -98,7 +98,6 @@ def helpmessage():
                     "│ " + key + "speed" + "\n" + \
                     "│ " + key + "runtime" + "\n" + \
                     "│ " + key + "relogin" + "\n" + \
-                    "│ " + key + "kbbi" + "\n" + \
                     "╰────────────"
     return helpMessage
 
@@ -142,6 +141,36 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
     if cmd == "maker":
         client.sendContact(to,admin)
 
+    elif cmd=="test_echo":
+            msg="echo echo echo "
+            client.sendMessage( to, msg)
+
+    elif cmd=="test_msg":
+            msg='Hi message'
+            msg2="No mention"
+            client.sendReplyMessage(msg_id, to, msg)
+            client.sendMessage( to, msg2)
+    elif cmd=="test_flex":
+            msg=""" {
+  "type": "bubble", // ①
+  "body": { // ②
+    "type": "box", // ③
+    "layout": "horizontal", // ④
+    "contents": [ // ⑤
+      {
+        "type": "text", // ⑥
+        "text": "Hello,"
+      },
+      {
+        "type": "text", // ⑥
+        "text": "World!"
+      }
+    ]
+  }
+}
+"""
+            client.sendFlexMessage( to, msg)            
+    
     elif cmd == "group":
             helpMsg4 = helpmsg4()
             ty = client.getContact(sender)
