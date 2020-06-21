@@ -61,7 +61,10 @@ except Exception as error:
     if args.traceback: traceback.print_tb(error.__traceback__)
     sys.exit(1)
 
+admin = "uac8e3eaf1eb2a55770bf10c3b2357c33"
+    
 if client:
+    print ('\nAdmin : %s' % admin)
     print ('\nUrgent: Auth Token -> %s' % client.authToken)
     print ('Urgent: Timeline Token -> %s' % client.tl.channelAccessToken)
     print ('\nSystem Message : *Login Successfully.')
@@ -69,7 +72,7 @@ else:
     sys.exit('System Message : *Login Failed.')
 
 myMid = client.profile.mid
-admin = "uac8e3eaf1eb2a55770bf10c3b2357c33"
+
 programStart = time.time()
 oepoll = OEPoll(client)
 tmp_text = []
