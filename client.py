@@ -6,7 +6,7 @@ from list_def import *
 # Login Client
 listAppType = ['DESKTOPWIN', 'DESKTOPMAC', 'IOSIPAD', 'CHROMEOS']
 try:
-    print ('Pesan Sistem : *Klien Masuk.')
+    print ('System Message : *Client Login.')
     client = None
     if args.apptype:
         tokenPath = Path('authToken.txt')
@@ -16,7 +16,7 @@ try:
             tokenFile = tokenPath.open('w+')
         savedAuthToken = tokenFile.read().strip()
         authToken = savedAuthToken if savedAuthToken and not args.token else args.token
-        idOrToken = authToken if authToken else print("# Tidak ada token terbaca, silahkan scan qr dibawah.")
+        idOrToken = authToken if authToken else print("# There are no read tokens, please scan the qr below.")
         try:
             client = LINE(idOrToken, appType=args.apptype, systemName=args.systemname, channelId=args.channelid, showQr=args.showqr)
             tokenFile.close()
@@ -38,7 +38,7 @@ try:
                 tokenFile = tokenPath.open('w+')
             savedAuthToken = tokenFile.read().strip()
             authToken = savedAuthToken if savedAuthToken and not args.token else args.token
-            idOrToken = authToken if authToken else print("# Tidak ada token terbaca, silahkan scan qr dibawah.")
+            idOrToken = authToken if authToken else print("# There are no read tokens, please scan the qr below.")
             try:
                 client = LINE(idOrToken, appType=appType, systemName=args.systemname, channelId=args.channelid, showQr=args.showqr)
                 tokenFile.close()
@@ -64,9 +64,9 @@ except Exception as error:
 if client:
     print ('\nPenting: Auth Token -> %s' % client.authToken)
     print ('Penting: Timeline Token -> %s' % client.tl.channelAccessToken)
-    print ('\nPesan Sistem : *Berhasil Masuk.')
+    print ('\nSystem Message : *Login Successfully.')
 else:
-    sys.exit('Pesan Sistem : *Gagal Masuk.')
+    sys.exit('System Message : *Login Failed.')
 
 myMid = client.profile.mid
 admin = "uac8e3eaf1eb2a55770bf10c3b2357c33"
@@ -103,25 +103,25 @@ def helpmessage():
     helpMessage ="╭─「 Umum 」─── " + "\n" + \
                     "│ Prefix : " + key + "\n" + \
                     "│ " + key + "Me" + "\n" + \
-                    "│ " + key + "Pembuat" + "\n" + \
+                    "│ " + key + "Maker" + "\n" + \
                     "╰────────────" + "\n" + \
                     "╭─「 Media 」─" + "\n" + \
-                    "│ " + key + "Antonim (kata)" + "\n" + \
+                    "│ " + key + "Antonim (words)" + "\n" + \
                     "│ " + key + "Cat facts" + "\n" + \
-                    "│ " + key + "Countryinfo (nama_negara)" + "\n" + \
+                    "│ " + key + "Countryinfo (name)" + "\n" + \
                     "│ " + key + "Daily nasa" + "\n" + \
                     "│ " + key + "Harrypotter" + "\n" + \
                     "│ " + key + "Ipcheck (ip)" + "\n" + \
-                    "│ " + key + "Kbbi (kata)" + "\n" + \
-                    "│ " + key + "Meanslike (kata)" + "\n" + \
+                    "│ " + key + "Kbbi (word)" + "\n" + \
+                    "│ " + key + "Meanslike (word)" + "\n" + \
                     "│ " + key + "Number (nomor)" + "\n" + \
                     "│ " + key + "Random Date" + "\n" + \
                     "│ " + key + "Random Quote" + "\n" + \
                     "│ " + key + "Random Year" + "\n" + \
                     "│ " + key + "Superhero" + "\n" + \
-                    "│ " + key + "Surah (nomor)" + "\n" + \
+                    "│ " + key + "Surah (number)" + "\n" + \
                     "│ " + key + "Twitter (username)" + "\n" + \
-                    "│ " + key + "Urbandict (kata)" + "\n" + \
+                    "│ " + key + "Urbandict (word)" + "\n" + \
                     "│ " + key + "Wikipedia" + "\n" + \
                     "╰────────────"
     return helpMessage
@@ -134,33 +134,33 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
       sys.exit('##----- PROGRAM STOPPED -----##')
 
     # // Bot Send His Creator Contact
-    if cmd == "pembuat":
-        client.sendContact(to,"uac8e3eaf1eb2a55770bf10c3b2357c33")
+    if cmd == "maker":
+        client.sendContact(to,admin)
 
     # // Checking Speed of Bot Send an Message
     elif cmd == 'speed':
         start = time.time()
-        client.sendReplyMessage(msg_id, to, 'Mengautentikasi...')
+        client.sendReplyMessage(msg_id, to, 'Authenticating...')
         elapse = time.time() - start
-        client.sendReplyMessage(msg_id, to, 'Kecepatan Mengirim Pesan %s Detik' % str(elapse))
+        client.sendReplyMessage(msg_id, to, 'Message Sending Speed %s Seconds' % str(elapse))
     
     # // Runtime when Program Started
     elif cmd == "runtime":
         timeNow = time.time()
         runtime = timeNow - programStart
         runtime = timeChange(runtime)
-        client.sendReplyMessage(msg_id, to, "Bot telah bekerja selama {}".format(str(runtime)))
+        client.sendReplyMessage(msg_id, to, "The bot has been working for a while {}".format(str(runtime)))
 
     # // Restart the Program
     elif cmd == 'relogin':
-        client.sendReplyMessage(msg_id, to, 'Berhasil Mengulangi Program!')
+        client.sendReplyMessage(msg_id, to, 'Successfully Repeating the Program!')
         settings['restartPoint'] = to
         restartProgram()
     
     # // Bot Send His Menu
     if cmd == "menu":
             helpMessage = helpmessage()
-            mids = "uac8e3eaf1eb2a55770bf10c3b2357c33"
+            mids = admin
             mantap={
                 'type': 'text',
                 'text': '{}'.format(str(helpMessage)),
@@ -177,9 +177,9 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
         paramz = client.getContact(sender)
         isi = "╭───「 Profile Info 」"
         isi += "\n│"
-        isi += "\n│ • y'mid : " + paramz.mid
-        isi += "\n│ • y'name : " + paramz.displayName
-        isi += "\n│ • y'bio : " + paramz.statusMessage
+        isi += "\n│ • user id : " + paramz.mid
+        isi += "\n│ • user name : " + paramz.displayName
+        isi += "\n│ • user status : " + paramz.statusMessage
         isi += "\n│"
         isi += "\n╰────────────"
         client.sendReplyMessage(msg_id,to, isi)
@@ -192,12 +192,12 @@ def executeCmd(msg, text, txt, cmd, msg_id, receiver, sender, to, setKey):
         judul = removeCmd(text)
         data = KBBI(judul)
         hasil = "╭──[ KBBI ]"
-        hasil += "\n├ Judul : " +str(judul)
+        hasil += "\n├ Title: " +str(judul)
         hasil += "\n╰──────────"
-        hasil += '\n\n-> Hasil : \n'+str(data.__str__(contoh=False))
+        hasil += '\n\n-> Results : \n'+str(data.__str__(contoh=False))
         client.sendReplyMessage(msg_id, to, str(hasil))
       except Exception as error:
-          client.sendReplyMessage(msg_id, to, "#Perintah Gagal, kata {} Tidak ditemukan".format(judul))
+          client.sendReplyMessage(msg_id, to, "#Command failed, said {} not found".format(judul))
           logError(error)
 
     # MEANS LIKE
