@@ -1,5 +1,4 @@
-### Thx to All HelloWorld Members!
-> Basics from HelloWorld
+
 
 [ *** การติดตั้ง SELF BOT *** ]
 
@@ -21,14 +20,3 @@ $ python3 basic-bot.py
 
 บอทจะ ถูก Login ในญี่ปุ่น ดังนั้น ไม่ควรใช้บัญชีหลักของท่านกับบอทนี้ 
 ใช้แล้วให้หมั่น Logout เพื่อป้องกันการนำ Token ไปใช้
-
-
-# For Checkin Version of Module // Untuk Memeriksa Versi Modul
-
-# Windows :
- > pip freeze | findstr (nama)
-
-# Linux :
- > pip freeze | grep (nama)
-
-
